@@ -37,11 +37,11 @@ struct Star: View {
     var rate: Double
     var body: some View {
         HStack(spacing: 2){
-            Image(systemName: "star.fill").font(.system(size: 15)).foregroundColor(.yellow)
-            Image(systemName: "star.fill").font(.system(size: 15)).foregroundColor(.yellow)
-            Image(systemName: "star.fill").font(.system(size: 15)).foregroundColor(.yellow)
-            Image(systemName: "star.fill").font(.system(size: 15)).foregroundColor(.yellow)
-            Image(systemName: "star.fill").font(.system(size: 15)).foregroundColor(.gray)
+            ForEach(0..<5, id: \.self) { index in
+                Image(systemName: "star.fill")
+                    .font(.system(size: 15))
+                    .foregroundColor(index < Int(rate) ? .yellow : .gray)
+            }
 
         }
     }
