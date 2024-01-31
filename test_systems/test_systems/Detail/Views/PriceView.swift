@@ -10,6 +10,7 @@ import SwiftUI
 struct PriceView: View {
     @Binding var viewModel: DetailViewModelProtocol
     @State var stateForPicker = 0
+    @State var countItems = 1
     var body: some View {
         VStack {
             Picker("picker", selection: $stateForPicker) {
@@ -42,20 +43,28 @@ struct PriceView: View {
                 }
                 Spacer()
                 HStack(spacing: 20){
-                    Button(action: {}) {
+                    Button(action: {
+                        if countItems > 1 {
+                            countItems -= 1
+                        }
+                    }) {
                         Image(systemName: "minus")
                             .font(.system(size: 20, weight: .bold))
                             .foregroundColor(.white)
                     }
                     VStack {
-                        Text("1 шт")                            
+                        Text("\(countItems) шт")
                             .foregroundColor(Color.white)
                             .font(.system(size: 19, weight: .bold))
-                        Text((String(format: "%.1f",viewModel.getPriceWithSale())))
+                        Text((String(format: "%.1f",viewModel.getPriceWithSale() * Double(countItems))))
                             .foregroundColor(Color.white)
                             .font(.system(size: 14))
                     }
-                    Button(action: {}) {
+                    Button(action: {
+                        if countItems < 10 {
+                            countItems += 1
+                        }
+                    }) {
                         Image(systemName: "plus")
                             .font(.system(size: 20, weight: .bold))
                             .foregroundColor(.white)
